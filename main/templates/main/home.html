@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% extends "main/header.html" %}
+{% block content %}
+	<table class="myTable">
+		<thead>
+		<tr>
+			<th><a style="color:black" href="/t">Title</a></th>
+			<th><a style="color:black" href="/a">Author</a></th>
+			<th><a style="color:black" href="/d">Date</a></th>
+			<th><a style="color:black" href="/l">Language</a></th>
+			{% if user.is_authenticated %}
+			<th><a style="color:black" href="/cp">Copies</a></th>
+			<th><a style="color:black" href="/s">Status</a></th>
+			<th><a style="color:black" href="/p">Price</a></th>
+			{% else %}
+			<th><a style="color:black" href="/c">Category</a></th>
+			<th><a style="color:black" href="/s">Status</a></th>
+			{% endif %}
+		</tr>
+		</thead>
+		<tbody>
+		{% for book in books %}
+		<tr>
+
+			<td style="background-color:#ABFF00"><a class="waves-effect waves-light modal-trigger" href="#{{book.pk}}" style="color:black">{{book.TITLE}}</a></td>
+			<div id="{{book.pk}}" class="modal">
+				<div class="modal-content">
+					<h4>{{book.TITLE}} by {{book.AUTHOR}}</h4>
+					<p>{{book.DESCRIPTION}}</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">Return</a>
+					{% if user.is_authenticated %}
+					| <a href="#{{book.pk}}-copies" class="waves-effect waves-light modal-trigger">Copies</a> |
+					<a href="book/{{book.pk}}/update/" class="waves-effect waves-light modal-trigger">Update</a> |
+					<a href="book/{{book.pk}}/delete/" class="waves-effect waves-light modal-trigger">DELETE</a>
+					{% endif %}
+				</div>
+			</div>
+			<div id="{{book.pk}}-copies" class="modal">
+				<div class="modal-content">
+					<h4>{{book.TITLE}} by {{book.AUTHOR}}<br>{{book.COPIES}} copies found</h4>
+					{% for copy in book.get_copies %}
+					<a href="copy/{{copy.pk}}/update/" class="waves-effect waves-light modal-trigger" style="color:black">Last Loaned:{{copy.LAST_LOANED}}| Last Borrower: {{copy.LAST_BORROWER}}| Classification: {{copy.CLASSIFICATION}}| Status: {{copy.STATUS}}</a> | <a href="copy/{{copy.pk}}/delete/" class="waves-effect waves-light modal-trigger">DELETE</a>
+					<br>
+					{% endfor %}
+
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat">Return</a>
+				</div>
+			</div>
+			<td>{{book.AUTHOR}}</td>
+			<td>{{book.DATE}}</td>
+			<td>{{book.LANGUAGE}}</td>
+			{% if user.is_authenticated %}
+			<td>{{book.COPIES}}</td>
+			<td>{{book.STATUS}}</td>
+			<td>{{book.PRICE}}</td>
+			{% else %}
+			<td>{{book.CATEGORY}}</td>
+			<td>{{book.STATUS}}</td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

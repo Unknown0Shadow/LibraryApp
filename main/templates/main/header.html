@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        table.myTable {width:100%}
+        table.myTable tr:nth-child(odd) {background-color: #CCC}
+        table.myTable td {width:10%}
+        table.myTable th {background-color:#777}
+        table.myTable, table.myTable th, table.myTable td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        ul.myList {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        ul.myList li {float: left;}
+        ul.myList li a {
+            display:block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        ul.myList li a:hover:not(.active) {background-color: #111;}
+        a.active {background-color: #777;}
+    </style>
+</head>
+<body>
+    {% include "main/includes/navbar.html" %}
+    {% include "main/includes/messages.html" %}
+
+    <div class="container">
+        <br>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+<script>M.AutoInit();</script>
+</html>

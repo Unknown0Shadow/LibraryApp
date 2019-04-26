@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+{% extends "main/header.html" %}
+{% block content %}
+<form method ="POST">
+	{% csrf_token %}
+	<h2>Are you sure you want to delete this book? {{bookcopy.get_title}} by {{bookcopy.get_author}} || {{bookcopy.CLASSIFICATION}} / {{bookcopy.STATUS}}</h2>
+	<button type="submit" style="background-color:#444" class="btn">Yes, delete</button>
+	<a style="background-color:#444" class="btn" href="/">Cancel</a>
+</form>
+{% endblock %}
